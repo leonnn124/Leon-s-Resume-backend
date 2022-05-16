@@ -7,4 +7,6 @@ memberModifyMethod = new MemberModifyMethod();
 
 router.post("/register", memberModifyMethod.postRegister);
 
+router.post("/login", memberModifyMethod.postLogin);
+
 module.exports = router;

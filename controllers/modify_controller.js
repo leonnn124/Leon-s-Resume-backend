@@ -1,6 +1,7 @@
-const toRegister = require("../models/register_model");
 const Check = require("../service/member_check");
+const toRegister = require("../models/register_model");
 const encryption = require("../models/encryption");
+const loginAction = require("../models/login_model");
 
 check = new Check();
 
@@ -43,4 +44,31 @@ module.exports = class Member {
       );
     }
   }
+  postLogin = (req, res, next) => {
+    const password = encryption(req.body.password);
+
+    // 獲取client端資料
+    const memberData = {
+      email: req.body.email,
+      password: password,
+    };
+
+    loginAction(memberData).then((rows) => {
+      if (check.checkNull(rows) === true) {
+        res.json({
+          result: {
+            status: "登入失敗。",
+            err: "請輸入正確的帳號或密碼。",
+          },
+        });
+      } else if (check.checkNull(rows) === false) {
+        res.json({
+          result: {
+            status: "登入成功。",
+            loginMember: "歡迎 " + rows[0].name + " 的登入！",
+          },
+        });
+      }
+    });
+  };
 };
