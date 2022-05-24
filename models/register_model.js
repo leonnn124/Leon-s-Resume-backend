@@ -12,7 +12,7 @@ module.exports = function register(memberData) {
         if (err) {
           console.log(err);
           result.status = "註冊失敗。";
-          result.err = "伺服器錯誤，請稍後在試！";
+          result.err = "伺服器錯誤，請稍後在試！"; 
           reject(result);
           return;
         }

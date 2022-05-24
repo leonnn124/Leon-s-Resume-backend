@@ -1,7 +1,10 @@
 const Check = require("../service/member_check");
+const config = require("../config/development_config");
+
 const toRegister = require("../models/register_model");
 const encryption = require("../models/encryption");
 const loginAction = require("../models/login_model");
+const jwt = require("jsonwebtoken");
 
 check = new Check();
 
@@ -52,16 +55,26 @@ module.exports = class Member {
       email: req.body.email,
       password: password,
     };
-
     loginAction(memberData).then((rows) => {
       if (check.checkNull(rows) === true) {
-        res.json({
+        res.status(404).json({
           result: {
             status: "登入失敗。",
             err: "請輸入正確的帳號或密碼。",
           },
         });
       } else if (check.checkNull(rows) === false) {
+        const token = jwt.sign(
+          {
+            // 產生token
+            algorithm: "HS256",
+            exp: Math.floor(Date.now() / 1000) + 60 * 60, // token一個小時後過期。
+            data: rows[0].id,
+          },
+          config.secret
+        );
+        res.setHeader("Access-Control-Expose-Headers", "*");
+        res.setHeader("token", token);
         res.json({
           result: {
             status: "登入成功。",
