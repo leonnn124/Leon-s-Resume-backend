@@ -22,7 +22,7 @@ module.exports = class Member {
     const checkEmail = check.checkEmail(memberData.email);
     // 不符合email格式
     if (checkEmail === false) {
-      res.json({
+      res.status(404).json({
         result: {
           status: "註冊失敗。",
           err: "請輸入正確的Eamil格式。(如1234@email.com)",
@@ -34,13 +34,22 @@ module.exports = class Member {
       toRegister(memberData).then(
         (result) => {
           // 若寫入成功則回傳
+          const token = jwt.sign(
+            {
+              // 產生token
+              algorithm: "HS256",
+              exp: Math.floor(Date.now() / 1000) + 60 * 60, // token一個小時後過期。
+            },
+            config.secret
+          );
           res.json({
             result: result,
+            token: token,
           });
         },
         (err) => {
           // 若寫入失敗則回傳
-          res.json({
+          res.status(404).json({
             result: err,
           });
         }
@@ -73,12 +82,11 @@ module.exports = class Member {
           },
           config.secret
         );
-        res.setHeader("Access-Control-Expose-Headers", "*");
-        res.setHeader("token", token);
         res.json({
           result: {
             status: "登入成功。",
-            loginMember: "歡迎 " + rows[0].name + " 的登入！",
+            loginMember: rows[0].name,
+            token: token,
           },
         });
       }

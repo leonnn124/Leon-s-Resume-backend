@@ -6,7 +6,7 @@ var logger = require("morgan");
 var cors = require("cors");
 
 var member = require("./routes/member");
-var users = require("./routes/users");
+var message = require("./routes/message");
 
 var app = express();
 
@@ -22,7 +22,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", member);
-app.use("/users", users);
+app.use("/message", message);
 
 // error handler
 app.use(function (err, req, res, next) {
