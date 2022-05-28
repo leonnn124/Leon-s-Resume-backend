@@ -7,4 +7,6 @@ getMessageMethod = new GetMessageMethod();
 
 router.get("/", getMessageMethod.getMessage);
 
+router.patch("/add", getMessageMethod.addMessage);
+
 module.exports = router;
