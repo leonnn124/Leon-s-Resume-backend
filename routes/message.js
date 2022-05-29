@@ -9,4 +9,8 @@ router.get("/", getMessageMethod.getMessage);
 
 router.patch("/add", getMessageMethod.addMessage);
 
+router.delete("/delete", getMessageMethod.deleteMessage);
+
+router.put("/update", getMessageMethod.updateMessage);
+
 module.exports = router;
