@@ -13,4 +13,6 @@ router.delete("/delete", getMessageMethod.deleteMessage);
 
 router.put("/update", getMessageMethod.updateMessage);
 
+router.post("/filter", getMessageMethod.filterMessage);
+
 module.exports = router;
