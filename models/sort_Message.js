@@ -1,6 +1,6 @@
 const db = require("./connection_db");
 
-module.exports = function sortessage(memberData) {
+module.exports = function sortMessage(memberData) {
   let result = {};
   return new Promise((resolve, reject) => {
     let newData = [];
