@@ -3,7 +3,6 @@ const db = require("./connection_db");
 module.exports = function sortessage(memberData) {
   let result = {};
   return new Promise((resolve, reject) => {
-    // 找尋
     let newData = [];
     if (memberData.name.length <= 0) {
       newData.name = "%%";
