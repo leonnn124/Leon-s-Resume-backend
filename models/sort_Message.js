@@ -15,7 +15,7 @@ module.exports = function sortessage(memberData) {
       newData.time = "%%";
     } else newData.time = `%${memberData.time}%`;
     db.query(
-      "SELECT * FROM message_list WHERE name LIKE ? and message LIKE ? and time LIKE ?;",
+      "SELECT * FROM message_list WHERE name LIKE $1 and message LIKE $2 and time LIKE $3;",
       [newData.name, newData.message, newData.time],
       function (err, rows) {
         if (err) {

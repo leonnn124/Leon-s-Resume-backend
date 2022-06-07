@@ -1,11 +1,12 @@
 const config = require("../config/development_config");
-const mysqlt = require("mysql");
+const pg = require("pg");
 
-const connection = mysqlt.createConnection({
-  host: config.mysql.host,
-  user: config.mysql.user,
-  password: config.mysql.password,
-  database: config.mysql.database,
+const connection = new pg.Pool({
+  host: process.env.DATABASE_HOST,
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE,
+  ssl: { rejectUnauthorized: false },
 });
 
 connection.connect((err) => {

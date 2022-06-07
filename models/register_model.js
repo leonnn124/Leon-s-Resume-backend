@@ -5,8 +5,8 @@ module.exports = function register(memberData) {
   return new Promise((resolve, reject) => {
     // 尋找是否有重複的email
     db.query(
-      "SELECT email FROM member_info WHERE email = ?",
-      memberData.email,
+      "SELECT email FROM member_info WHERE email = $1",
+      [memberData.email],
       function (err, rows) {
         // 若資料庫部分出現問題，則回傳給client端「伺服器錯誤，請稍後再試！」的結果。
         if (err) {
@@ -24,8 +24,8 @@ module.exports = function register(memberData) {
         } else {
           // 將資料寫入資料庫
           db.query(
-            "INSERT INTO member_info SET ?",
-            memberData,
+            `INSERT INTO member_info (name,email,password) VALUES($1,$2,$3);`,
+            [memberData.name, memberData.email, memberData.password],
             function (err, rows) {
               // 若資料庫部分出現問題，則回傳給client端「伺服器錯誤，請稍後再試！」的結果。
               if (err) {

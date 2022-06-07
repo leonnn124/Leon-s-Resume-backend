@@ -5,7 +5,7 @@ module.exports = function renewMessage(memberData) {
   return new Promise((resolve, reject) => {
     // 找尋
     db.query(
-      "UPDATE message_list SET message = ? , time = ? WHERE id = ?;",
+      "UPDATE message_list SET message = $1 , time = $2 WHERE id = $3;",
       [memberData.message, memberData.time, memberData.id],
       function (err, rows) {
         if (err) {

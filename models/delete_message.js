@@ -5,7 +5,7 @@ module.exports = function dropMessage(memberData) {
   return new Promise((resolve, reject) => {
     // 找尋
     db.query(
-      "DELETE FROM message_list WHERE id= ?;",
+      "DELETE FROM message_list WHERE id= $1;",
       [memberData.id],
       function (err, rows) {
         if (err) {

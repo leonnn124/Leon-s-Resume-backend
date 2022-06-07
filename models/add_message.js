@@ -5,7 +5,7 @@ module.exports = function patchMessage(memberData) {
   return new Promise((resolve, reject) => {
     // 找尋
     db.query(
-      "INSERT INTO message_list(name, message, time) VALUES (?, ?, ?);",
+      "INSERT INTO message_list(name, message, time) VALUES ($1, $2, $3);",
       [memberData.name, memberData.message, memberData.time],
       function (err, rows) {
         if (err) {

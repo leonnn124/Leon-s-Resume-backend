@@ -78,14 +78,14 @@ module.exports = class Member {
             // 產生token
             algorithm: "HS256",
             exp: Math.floor(Date.now() / 1000) + 60 * 60, // token一個小時後過期。
-            data: rows[0].id,
+            data: rows["rows"][0].id,
           },
           config.secret
         );
         res.json({
           result: {
             status: "登入成功。",
-            loginMember: rows[0].name,
+            loginMember: rows["rows"][0].name,
             token: token,
           },
         });

@@ -31,7 +31,7 @@ module.exports = class Member {
             (result) => {
               // 若寫入成功則回傳
               res.json({
-                result: result.reverse(),
+                result: result.rows.reverse(),
               });
             },
             (err) => {
@@ -191,7 +191,7 @@ module.exports = class Member {
             (result) => {
               // 若寫入成功則回傳
               res.json({
-                result: result.reverse(),
+                result: result.rows.reverse(),
               });
             },
             (err) => {
